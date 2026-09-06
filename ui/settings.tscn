@@ -1,0 +1,335 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/settings_screen.gd" id="1_script"]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_script")
+
+[node name="Bg" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.07, 0.05, 0.09, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+offset_left = 48.0
+offset_top = 20.0
+offset_right = 400.0
+offset_bottom = 68.0
+theme_override_font_sizes/font_size = 32
+text = "设置"
+
+[node name="Tabs" type="HBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 48.0
+offset_top = 80.0
+offset_right = 1232.0
+offset_bottom = 132.0
+theme_override_constants/separation = 12
+
+[node name="TabAudio" type="Button" parent="Tabs"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "音频"
+
+[node name="TabVideo" type="Button" parent="Tabs"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "画面"
+
+[node name="TabKeys" type="Button" parent="Tabs"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "按键"
+
+[node name="TabAccount" type="Button" parent="Tabs"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "账号"
+
+[node name="PageAudio" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 48.0
+offset_top = 156.0
+offset_right = 1232.0
+offset_bottom = 640.0
+
+[node name="VolLabel" type="Label" parent="PageAudio"]
+offset_top = 12.0
+offset_right = 200.0
+offset_bottom = 40.0
+text = "主音量"
+
+[node name="Master" type="HSlider" parent="PageAudio"]
+unique_name_in_owner = true
+offset_top = 44.0
+offset_right = 520.0
+offset_bottom = 64.0
+
+[node name="MasterVal" type="Label" parent="PageAudio"]
+unique_name_in_owner = true
+offset_left = 540.0
+offset_top = 36.0
+offset_right = 680.0
+offset_bottom = 64.0
+text = "0 dB"
+
+[node name="SfxLabel" type="Label" parent="PageAudio"]
+offset_top = 92.0
+offset_right = 200.0
+offset_bottom = 120.0
+text = "音效"
+
+[node name="Sfx" type="HSlider" parent="PageAudio"]
+unique_name_in_owner = true
+offset_top = 124.0
+offset_right = 520.0
+offset_bottom = 144.0
+
+[node name="SfxVal" type="Label" parent="PageAudio"]
+unique_name_in_owner = true
+offset_left = 540.0
+offset_top = 116.0
+offset_right = 680.0
+offset_bottom = 144.0
+text = "0 dB"
+
+[node name="BgmLabel" type="Label" parent="PageAudio"]
+offset_top = 172.0
+offset_right = 200.0
+offset_bottom = 200.0
+text = "音乐"
+
+[node name="Bgm" type="HSlider" parent="PageAudio"]
+unique_name_in_owner = true
+offset_top = 204.0
+offset_right = 520.0
+offset_bottom = 224.0
+
+[node name="BgmVal" type="Label" parent="PageAudio"]
+unique_name_in_owner = true
+offset_left = 540.0
+offset_top = 196.0
+offset_right = 680.0
+offset_bottom = 224.0
+text = "-8 dB"
+
+[node name="Mute" type="CheckBox" parent="PageAudio"]
+unique_name_in_owner = true
+offset_top = 256.0
+offset_right = 220.0
+offset_bottom = 292.0
+text = "静音"
+
+[node name="PageVideo" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+offset_left = 48.0
+offset_top = 156.0
+offset_right = 1232.0
+offset_bottom = 640.0
+
+[node name="Full" type="CheckBox" parent="PageVideo"]
+unique_name_in_owner = true
+offset_top = 16.0
+offset_right = 280.0
+offset_bottom = 52.0
+text = "全屏"
+
+[node name="Vsync" type="CheckBox" parent="PageVideo"]
+unique_name_in_owner = true
+offset_top = 68.0
+offset_right = 280.0
+offset_bottom = 104.0
+text = "垂直同步"
+
+[node name="ShowFps" type="CheckBox" parent="PageVideo"]
+unique_name_in_owner = true
+offset_top = 120.0
+offset_right = 280.0
+offset_bottom = 156.0
+text = "显示帧数"
+
+[node name="Shake" type="CheckBox" parent="PageVideo"]
+unique_name_in_owner = true
+offset_top = 172.0
+offset_right = 280.0
+offset_bottom = 208.0
+text = "受击震动"
+
+[node name="LockNote" type="Label" parent="PageVideo"]
+offset_top = 236.0
+offset_right = 720.0
+offset_bottom = 280.0
+theme_override_font_sizes/font_size = 14
+text = "帧率锁定 60"
+
+[node name="PageKeys" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+offset_left = 48.0
+offset_top = 156.0
+offset_right = 1232.0
+offset_bottom = 640.0
+
+[node name="KeyHint" type="Label" parent="PageKeys"]
+unique_name_in_owner = true
+offset_top = 8.0
+offset_right = 800.0
+offset_bottom = 40.0
+text = "点按一项，再按下新按键"
+
+[node name="BindJump" type="Button" parent="PageKeys"]
+unique_name_in_owner = true
+offset_top = 64.0
+offset_right = 420.0
+offset_bottom = 120.0
+text = "跳跃    空格"
+
+[node name="BindDuck" type="Button" parent="PageKeys"]
+unique_name_in_owner = true
+offset_top = 140.0
+offset_right = 420.0
+offset_bottom = 196.0
+text = "下滑    S"
+
+[node name="BindPause" type="Button" parent="PageKeys"]
+unique_name_in_owner = true
+offset_top = 216.0
+offset_right = 420.0
+offset_bottom = 272.0
+text = "暂停    Esc"
+
+[node name="PageAccount" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+offset_left = 48.0
+offset_top = 156.0
+offset_right = 1232.0
+offset_bottom = 640.0
+
+[node name="NickLabel" type="Label" parent="PageAccount"]
+offset_top = 16.0
+offset_right = 80.0
+offset_bottom = 44.0
+text = "昵称"
+
+[node name="Nick" type="LineEdit" parent="PageAccount"]
+unique_name_in_owner = true
+offset_left = 90.0
+offset_top = 8.0
+offset_right = 480.0
+offset_bottom = 48.0
+
+[node name="IdHint" type="Label" parent="PageAccount"]
+offset_top = 72.0
+offset_right = 80.0
+offset_bottom = 100.0
+text = "ID"
+
+[node name="PlayerId" type="Label" parent="PageAccount"]
+unique_name_in_owner = true
+offset_left = 90.0
+offset_top = 72.0
+offset_right = 520.0
+offset_bottom = 100.0
+
+[node name="CopyId" type="Button" parent="PageAccount"]
+unique_name_in_owner = true
+offset_left = 540.0
+offset_top = 64.0
+offset_right = 680.0
+offset_bottom = 108.0
+text = "复制ID"
+
+[node name="ResetBoard" type="Button" parent="PageAccount"]
+unique_name_in_owner = true
+offset_top = 140.0
+offset_right = 280.0
+offset_bottom = 188.0
+text = "清空本地排行"
+
+[node name="PrivacyBtn" type="Button" parent="PageAccount"]
+unique_name_in_owner = true
+offset_left = 300.0
+offset_top = 140.0
+offset_right = 520.0
+offset_bottom = 188.0
+text = "隐私政策"
+
+[node name="DebugIap" type="CheckBox" parent="PageAccount"]
+unique_name_in_owner = true
+offset_top = 210.0
+offset_right = 420.0
+offset_bottom = 250.0
+text = "调试解锁内购角色"
+
+[node name="WipeSave" type="Button" parent="PageAccount"]
+unique_name_in_owner = true
+offset_top = 270.0
+offset_right = 280.0
+offset_bottom = 318.0
+text = "清空进度（保留内购）"
+
+[node name="GrantTestCoins" type="Button" parent="PageAccount"]
+unique_name_in_owner = true
+offset_left = 300.0
+offset_top = 270.0
+offset_right = 560.0
+offset_bottom = 318.0
+text = "测试：加 2400 币"
+
+[node name="PrivacyPanel" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.05, 0.04, 0.07, 0.94)
+
+[node name="PrivacyText" type="RichTextLabel" parent="PrivacyPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 80.0
+offset_top = 48.0
+offset_right = 1200.0
+offset_bottom = 600.0
+bbcode_enabled = true
+fit_content = false
+scroll_active = true
+text = "[b]隐私政策[/b]
+本游戏一期只在本机保存昵称、游戏 ID、金币和角色解锁。排行榜会把昵称、分数、距离发到 qrqto.club。不读相册，不申请定位。你可以随时清空本地进度。"
+
+[node name="PrivacyClose" type="Button" parent="PrivacyPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 80.0
+offset_top = 620.0
+offset_right = 260.0
+offset_bottom = 668.0
+text = "关闭"
+
+[node name="Back" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 48.0
+offset_top = 656.0
+offset_right = 220.0
+offset_bottom = 704.0
+theme_override_font_sizes/font_size = 20
+text = "返回首页"

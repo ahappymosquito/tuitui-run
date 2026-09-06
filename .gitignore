@@ -1,0 +1,28 @@
+# Godot 4.7+
+.godot/
+/android/
+*.translation
+override.cfg
+.godot/export_credentials.cfg
+export_credentials.cfg
+
+# 本机 / OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+*~
+
+# 编辑器
+.vs/
+
+# 导出产物
+/builds/
+/export/
+*.exe
+*.pck
+*.zip
+
+# 临时文件
+*.tmp
+/tools/shots/
+/server/data/

@@ -1,0 +1,3 @@
+[gd_scene format=3]
+
+[node name="teach_high_jump" type="Node2D"]

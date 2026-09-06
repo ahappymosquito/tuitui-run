@@ -1,0 +1,87 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/rank.gd" id="1_script"]
+
+[node name="Rank" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_script")
+
+[node name="Bg" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.07, 0.05, 0.08, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 24.0
+offset_bottom = 76.0
+theme_override_font_sizes/font_size = 34
+theme_override_colors/font_color = Color(0.93, 0.84, 0.62, 1)
+horizontal_alignment = 1
+text = "旅人榜"
+
+[node name="Cols" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchor_left = 0.04
+anchor_top = 0.14
+anchor_right = 0.96
+anchor_bottom = 0.86
+theme_override_constants/separation = 28
+
+[node name="Left" type="VBoxContainer" parent="Cols"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="LocalTitle" type="Label" parent="Cols/Left"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.90, 0.82, 0.62, 1)
+text = "本机"
+
+[node name="LocalScroll" type="ScrollContainer" parent="Cols/Left"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LocalCol" type="VBoxContainer" parent="Cols/Left/LocalScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Right" type="VBoxContainer" parent="Cols"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="RemoteTitle" type="Label" parent="Cols/Right"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.90, 0.82, 0.62, 1)
+text = "线上"
+
+[node name="RemoteScroll" type="ScrollContainer" parent="Cols/Right"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RemoteCol" type="VBoxContainer" parent="Cols/Right/RemoteScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Back" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 48.0
+offset_top = 640.0
+offset_right = 200.0
+offset_bottom = 688.0
+text = "返回"

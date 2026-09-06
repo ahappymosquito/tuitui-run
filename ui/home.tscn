@@ -1,0 +1,242 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://ui/home.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/ui/lobby_clean.png" id="2_sky"]
+[ext_resource type="Texture2D" path="res://assets/characters/player/player_idle.png" id="4_idle"]
+[ext_resource type="Texture2D" path="res://assets/ui/icon_shield.png" id="9_sh"]
+[ext_resource type="Texture2D" path="res://assets/ui/icon_magnet.png" id="10_mg"]
+[ext_resource type="PackedScene" path="res://ui/run_enter.tscn" id="11_enter"]
+
+[sub_resource type="StyleBoxFlat" id="card"]
+bg_color = Color(0.08, 0.07, 0.12, 0.72)
+corner_radius_top_left = 22
+corner_radius_top_right = 22
+corner_radius_bottom_right = 22
+corner_radius_bottom_left = 22
+content_margin_left = 18
+content_margin_top = 16
+content_margin_right = 18
+content_margin_bottom = 16
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.12)
+
+[sub_resource type="StyleBoxFlat" id="row"]
+bg_color = Color(1, 1, 1, 0.08)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+content_margin_left = 14
+content_margin_top = 10
+content_margin_right = 14
+content_margin_bottom = 10
+
+[sub_resource type="StyleBoxFlat" id="cta"]
+bg_color = Color(1, 0.78, 0.28, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="tab"]
+bg_color = Color(0.10, 0.09, 0.14, 0.82)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.16)
+
+[node name="Home" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_script")
+
+[node name="Sky" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource("2_sky")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TopBar" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 68.0
+color = Color(0.06, 0.05, 0.10, 0.38)
+
+[node name="TopRow" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 28.0
+offset_top = 12.0
+offset_right = -24.0
+offset_bottom = 56.0
+theme_override_constants/separation = 16
+
+[node name="Coins" type="Label" parent="TopRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(1, 0.86, 0.42, 1)
+text = "橘子币  800"
+
+[node name="IdLabel" type="Label" parent="TopRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 0.72)
+text = "ID"
+
+[node name="SettingsButton" type="Button" parent="TopRow"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(108, 0)
+theme_override_styles/normal = SubResource("row")
+text = "设置"
+
+[node name="RankButton" type="Button" parent="TopRow"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(108, 0)
+theme_override_styles/normal = SubResource("row")
+text = "排行榜"
+
+[node name="ShopCard" type="Panel" parent="."]
+layout_mode = 1
+anchor_left = 0.03
+anchor_top = 0.125
+anchor_right = 0.40
+anchor_bottom = 0.62
+theme_override_styles/panel = SubResource("card")
+
+[node name="ShopCol" type="VBoxContainer" parent="ShopCard"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 12.0
+offset_right = -16.0
+offset_bottom = -12.0
+theme_override_constants/separation = 12
+
+[node name="ShopTitle" type="Label" parent="ShopCard/ShopCol"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "开局道具"
+
+[node name="Shield" type="Button" parent="ShopCard/ShopCol"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 56)
+theme_override_styles/normal = SubResource("row")
+icon = ExtResource("9_sh")
+expand_icon = true
+text = "  护盾    800"
+
+[node name="Magnet" type="Button" parent="ShopCard/ShopCol"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 56)
+theme_override_styles/normal = SubResource("row")
+icon = ExtResource("10_mg")
+expand_icon = true
+text = "  磁铁    400"
+
+[node name="None" type="Button" parent="ShopCard/ShopCol"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 44)
+theme_override_styles/normal = SubResource("row")
+text = "不带道具"
+
+[node name="Status" type="Label" parent="ShopCard/ShopCol"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 0.7)
+horizontal_alignment = 1
+text = "未携带开局道具"
+
+[node name="Portrait" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_left = 0.46
+anchor_top = 0.12
+anchor_right = 0.97
+anchor_bottom = 0.86
+mouse_filter = 2
+texture = ExtResource("4_idle")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BottomBar" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 36.0
+offset_top = -80.0
+offset_right = -36.0
+offset_bottom = -18.0
+theme_override_constants/separation = 16
+
+[node name="TabChar" type="Button" parent="BottomBar"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(160, 0)
+size_flags_horizontal = 0
+theme_override_styles/normal = SubResource("tab")
+text = "角色"
+
+[node name="Grow" type="Control" parent="BottomBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="StartButton" type="Button" parent="BottomBar"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(280, 0)
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.16, 0.09, 0.02, 1)
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("cta")
+text = "开始游戏"
+
+[node name="VersionLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -112.0
+offset_right = -36.0
+offset_bottom = -84.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(1, 1, 1, 0.55)
+horizontal_alignment = 2
+text = "v1.4.4"
+
+[node name="RunEnter" parent="." instance=ExtResource("11_enter")]
+unique_name_in_owner = true
+visible = false

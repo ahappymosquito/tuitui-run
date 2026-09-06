@@ -1,0 +1,9 @@
+init
+player_def=oc_a
+max_jumps=0
+has_slide=true
+col_slide=true
+owned=oc_a
+equipped=oc_a
+coins=800
+OC_OK

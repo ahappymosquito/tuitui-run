@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="CharacterDef" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/character_def.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://data/characters/oc_a_frames.tres" id="2_frames"]
+[ext_resource type="Texture2D" path="res://assets/characters/oc_a/player_idle.png" id="3_port"]
+
+[resource]
+script = ExtResource("1_script")
+id = &"oc_a"
+display_name = "推推"
+skill_blurb = "二段跳"
+unlocked_default = true
+currency = &"coin"
+price = 0
+iap_sku = ""
+max_jumps = 2
+can_glide = false
+glide_gravity_scale = 0.35
+start_sprint_sec = 0.0
+hitbox_run = Vector2(42, 86)
+hitbox_slide = Vector2(56, 46)
+sprite_frames = ExtResource("2_frames")
+shop_portrait = ExtResource("3_port")
+sprite_offset = Vector2(4, -248)
+sprite_scale = Vector2(0.22, 0.22)

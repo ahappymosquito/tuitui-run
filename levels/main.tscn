@@ -1,0 +1,661 @@
+[gd_scene load_steps=27 format=3]
+
+[ext_resource type="Script" path="res://systems/game.gd" id="1_game"]
+[ext_resource type="PackedScene" path="res://characters/player/player.tscn" id="2_player"]
+[ext_resource type="Script" path="res://systems/obstacle_spawner.gd" id="3_spawn"]
+[ext_resource type="Script" path="res://systems/ground_scroll.gd" id="4_ground"]
+[ext_resource type="Script" path="res://systems/hud.gd" id="5_hud"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/sky_night.png" id="6_skyn"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/sky_day.png" id="7_skyd"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/curtains.png" id="8_curt"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/ground.png" id="9_grnd"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/cloud.png" id="10_cloud"]
+[ext_resource type="Texture2D" path="res://assets/ui/panel.png" id="11_panel"]
+[ext_resource type="Texture2D" path="res://assets/ui/button.png" id="12_btn"]
+[ext_resource type="Texture2D" path="res://assets/ui/button_hover.png" id="13_btnh"]
+[ext_resource type="Texture2D" path="res://assets/ui/button_pressed.png" id="14_btnp"]
+[ext_resource type="AudioStream" path="res://assets/sfx/jump.wav" id="15_jmp"]
+[ext_resource type="AudioStream" path="res://assets/sfx/hit.wav" id="16_hit"]
+[ext_resource type="AudioStream" path="res://assets/sfx/score.wav" id="17_scr"]
+[ext_resource type="Texture2D" path="res://assets/fx/impact.png" id="18_imp"]
+[ext_resource type="Texture2D" path="res://assets/fx/shockwave.png" id="19_sw"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/super_sky.png" id="20_ss"]
+[ext_resource type="Texture2D" path="res://assets/animals/starfox.png" id="21_sf"]
+[ext_resource type="Texture2D" path="res://assets/animals/owl.png" id="22_ow"]
+[ext_resource type="Texture2D" path="res://assets/ui/celebrate.png" id="23_cel"]
+[ext_resource type="Script" path="res://scripts/player/touch_zones.gd" id="24_touch"]
+[ext_resource type="PackedScene" path="res://ui/run_enter.tscn" id="25_enter"]
+
+[sub_resource type="RectangleShape2D" id="Rect_ground"]
+size = Vector2(4800, 80)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_game")
+
+[node name="SkyNight" type="Parallax2D" parent="."]
+unique_name_in_owner = true
+repeat_size = Vector2(768, 0)
+repeat_times = 4
+scroll_scale = Vector2(0.12, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="SkyNight"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("6_skyn")
+centered = false
+
+[node name="SkyDay" type="Parallax2D" parent="."]
+unique_name_in_owner = true
+visible = false
+repeat_size = Vector2(768, 0)
+repeat_times = 4
+scroll_scale = Vector2(0.12, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="SkyDay"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("7_skyd")
+centered = false
+
+[node name="Curtains" type="Parallax2D" parent="."]
+unique_name_in_owner = true
+repeat_size = Vector2(851, 0)
+repeat_times = 4
+scroll_scale = Vector2(0.35, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Curtains"]
+modulate = Color(1, 1, 1, 0.92)
+position = Vector2(0, -30)
+scale = Vector2(0.7, 0.55)
+texture = ExtResource("8_curt")
+centered = false
+
+[node name="Clouds" type="Parallax2D" parent="."]
+unique_name_in_owner = true
+repeat_size = Vector2(1400, 0)
+repeat_times = 3
+scroll_scale = Vector2(0.22, 0)
+
+[node name="C1" type="Sprite2D" parent="Clouds"]
+position = Vector2(180, 96)
+scale = Vector2(0.34, 0.34)
+texture = ExtResource("10_cloud")
+
+[node name="C2" type="Sprite2D" parent="Clouds"]
+position = Vector2(640, 168)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("10_cloud")
+
+[node name="C3" type="Sprite2D" parent="Clouds"]
+position = Vector2(1080, 72)
+scale = Vector2(0.28, 0.28)
+texture = ExtResource("10_cloud")
+
+[node name="GroundVisual" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+z_index = 1
+position = Vector2(0, 600)
+texture = ExtResource("9_grnd")
+centered = false
+texture_repeat = 2
+region_enabled = true
+region_rect = Rect2(0, 0, 2560, 140)
+script = ExtResource("4_ground")
+
+[node name="GroundBody" type="StaticBody2D" parent="."]
+position = Vector2(0, 600)
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundBody"]
+position = Vector2(640, 40)
+shape = SubResource("Rect_ground")
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+unique_name_in_owner = true
+z_index = 5
+position = Vector2(200, 600)
+
+[node name="ObstacleSpawner" type="Node2D" parent="."]
+unique_name_in_owner = true
+z_index = 4
+script = ExtResource("3_spawn")
+
+[node name="TouchZones" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 10
+script = ExtResource("24_touch")
+
+[node name="SlideZone" type="ColorRect" parent="TouchZones"]
+unique_name_in_owner = true
+anchor_left = 0.0
+anchor_top = 0.72
+anchor_right = 0.4
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.18, 0.42, 0.92, 0.16)
+
+[node name="SlideHint" type="Label" parent="TouchZones/SlideZone"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -52.0
+offset_right = 90.0
+offset_bottom = -10.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 0.85)
+theme_override_colors/font_outline_color = Color(0.05, 0.08, 0.18, 0.8)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+text = "滑"
+
+[node name="JumpZone" type="ColorRect" parent="TouchZones"]
+unique_name_in_owner = true
+anchor_left = 0.4
+anchor_top = 0.72
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.95, 0.55, 0.18, 0.16)
+
+[node name="JumpHint" type="Label" parent="TouchZones/JumpZone"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -52.0
+offset_right = 90.0
+offset_bottom = -10.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.75, 0.85)
+theme_override_colors/font_outline_color = Color(0.18, 0.08, 0.04, 0.8)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+text = "跳"
+
+[node name="HUD" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 20
+script = ExtResource("5_hud")
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+unique_name_in_owner = true
+offset_left = 36.0
+offset_top = 20.0
+offset_right = 420.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(1, 0.88, 0.93, 1)
+theme_override_colors/font_outline_color = Color(0.14, 0.03, 0.18, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 28
+text = "分数  00000"
+
+[node name="HiLabel" type="Label" parent="HUD"]
+unique_name_in_owner = true
+offset_left = 36.0
+offset_top = 56.0
+offset_right = 420.0
+offset_bottom = 92.0
+theme_override_colors/font_color = Color(1, 0.78, 0.45, 1)
+theme_override_colors/font_outline_color = Color(0.14, 0.03, 0.18, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 20
+text = "最高  00000"
+
+[node name="CoinLabel" type="Label" parent="HUD"]
+unique_name_in_owner = true
+offset_left = 36.0
+offset_top = 88.0
+offset_right = 420.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(1, 0.82, 0.35, 1)
+theme_override_colors/font_outline_color = Color(0.14, 0.03, 0.18, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 20
+text = "距离  0"
+
+[node name="EnergyBar" type="ProgressBar" parent="HUD"]
+unique_name_in_owner = true
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 480.0
+offset_top = 22.0
+offset_right = -150.0
+offset_bottom = 42.0
+grow_horizontal = 2
+max_value = 100.0
+show_percentage = false
+
+[node name="EnergyPct" type="Label" parent="HUD"]
+unique_name_in_owner = true
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 480.0
+offset_top = 44.0
+offset_right = -150.0
+offset_bottom = 68.0
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(1, 0.86, 0.4, 1)
+horizontal_alignment = 1
+text = "0%"
+
+[node name="SuperLabel" type="Label" parent="HUD"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 128.0
+offset_bottom = 168.0
+theme_override_colors/font_color = Color(1, 0.86, 0.35, 1)
+theme_override_colors/font_outline_color = Color(0.2, 0.05, 0.1, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 26
+horizontal_alignment = 1
+text = "超级奖励！"
+
+[node name="SuperEnter" type="Control" parent="HUD"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="TransitArt" type="TextureRect" parent="HUD/SuperEnter"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+modulate = Color(1, 1, 1, 0)
+
+[node name="Wash" type="ColorRect" parent="HUD/SuperEnter"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(1, 0.82, 0.32, 0.0)
+
+[node name="EnterTitle" type="Label" parent="HUD/SuperEnter"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 176.0
+offset_bottom = 228.0
+theme_override_colors/font_color = Color(1, 0.92, 0.55, 1)
+theme_override_colors/font_outline_color = Color(0.18, 0.06, 0.04, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+text = "超级奖励即将开启"
+
+[node name="EnterCount" type="Label" parent="HUD/SuperEnter"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -70.0
+offset_right = 80.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(1, 0.9, 0.45, 1)
+theme_override_colors/font_outline_color = Color(0.16, 0.05, 0.04, 1)
+theme_override_constants/outline_size = 14
+theme_override_font_sizes/font_size = 96
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "3"
+
+[node name="HintLabel" type="Label" parent="HUD"]
+unique_name_in_owner = true
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 120.0
+offset_bottom = 168.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.96, 1)
+theme_override_colors/font_outline_color = Color(0.14, 0.03, 0.18, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+text = "跟着金币走"
+
+[node name="FpsLabel" type="Label" parent="HUD"]
+unique_name_in_owner = true
+visible = false
+offset_left = 1140.0
+offset_top = 16.0
+offset_right = 1260.0
+offset_bottom = 44.0
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(1, 0.92, 0.55, 1)
+horizontal_alignment = 2
+text = "60 FPS"
+
+[node name="VersionLabel" type="Label" parent="HUD"]
+unique_name_in_owner = true
+offset_left = 1140.0
+offset_top = 44.0
+offset_right = 1260.0
+offset_bottom = 68.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(1, 1, 1, 0.45)
+horizontal_alignment = 2
+text = "v1.4.4"
+
+[node name="PauseButton" type="Button" parent="HUD"]
+unique_name_in_owner = true
+visible = false
+offset_left = 1164.0
+offset_top = 72.0
+offset_right = 1256.0
+offset_bottom = 108.0
+theme_override_font_sizes/font_size = 16
+text = "暂停"
+
+[node name="GameOver" type="Control" parent="HUD"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="HUD/GameOver"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.04, 0.01, 0.08, 0.62)
+
+[node name="CelebrateArt" type="TextureRect" parent="HUD/GameOver"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -300.0
+offset_right = 320.0
+offset_bottom = -120.0
+texture = ExtResource("23_cel")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Panel" type="NinePatchRect" parent="HUD/GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -220.0
+offset_right = 280.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_panel")
+patch_margin_left = 86
+patch_margin_top = 86
+patch_margin_right = 86
+patch_margin_bottom = 86
+
+[node name="OverTitle" type="Label" parent="HUD/GameOver"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -188.0
+offset_right = 220.0
+offset_bottom = -140.0
+theme_override_colors/font_color = Color(1, 0.9, 0.94, 1)
+theme_override_colors/font_outline_color = Color(0.08, 0.02, 0.12, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+text = "本局结束"
+
+[node name="Celebrate" type="Label" parent="HUD/GameOver"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -140.0
+offset_right = 220.0
+offset_bottom = -108.0
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 0.82, 0.3, 1)
+horizontal_alignment = 1
+text = "打破纪录！"
+
+[node name="OverScore" type="Label" parent="HUD/GameOver"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -100.0
+offset_right = 220.0
+offset_bottom = -20.0
+theme_override_font_sizes/font_size = 56
+theme_override_colors/font_color = Color(1, 0.86, 0.4, 1)
+theme_override_colors/font_outline_color = Color(0.12, 0.04, 0.08, 1)
+theme_override_constants/outline_size = 10
+horizontal_alignment = 1
+text = "0"
+
+[node name="OverDetail" type="Label" parent="HUD/GameOver"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -8.0
+offset_right = 230.0
+offset_bottom = 72.0
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(1, 0.9, 0.94, 1)
+theme_override_colors/font_outline_color = Color(0.08, 0.02, 0.12, 1)
+theme_override_constants/outline_size = 4
+horizontal_alignment = 1
+text = ""
+
+[node name="ReplayButton" type="Button" parent="HUD/GameOver"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = 88.0
+offset_right = -20.0
+offset_bottom = 148.0
+theme_override_font_sizes/font_size = 20
+text = "再玩一次"
+
+[node name="HomeButton" type="Button" parent="HUD/GameOver"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = 88.0
+offset_right = 220.0
+offset_bottom = 148.0
+theme_override_font_sizes/font_size = 20
+text = "返回主界面"
+
+[node name="RestartButton" type="TextureButton" parent="HUD/GameOver"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = 16.0
+offset_right = 48.0
+offset_bottom = 112.0
+texture_normal = ExtResource("12_btn")
+texture_pressed = ExtResource("14_btnp")
+texture_hover = ExtResource("13_btnh")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="PauseRoot" type="Control" parent="HUD"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="HUD/PauseRoot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.05, 0.02, 0.08, 0.55)
+
+[node name="PauseTitle" type="Label" parent="HUD/PauseRoot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -80.0
+offset_right = 160.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(1, 0.9, 0.95, 1)
+horizontal_alignment = 1
+text = "暂停"
+
+[node name="ResumeButton" type="Button" parent="HUD/PauseRoot"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -20.0
+offset_right = 90.0
+offset_bottom = 20.0
+text = "继续"
+
+[node name="PauseHomeButton" type="Button" parent="HUD/PauseRoot"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = 32.0
+offset_right = 90.0
+offset_bottom = 72.0
+text = "回首页"
+
+[node name="RunEnter" parent="HUD" instance=ExtResource("25_enter")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Impact" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+z_index = 20
+visible = false
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("18_imp")
+
+[node name="Shockwave" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+z_index = 6
+visible = false
+texture = ExtResource("19_sw")
+
+[node name="SuperSky" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = -2
+position = Vector2(640, 360)
+scale = Vector2(0.72, 0.72)
+texture = ExtResource("20_ss")
+
+[node name="PetA" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(900, 220)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("21_sf")
+z_index = 3
+
+[node name="PetB" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(1040, 280)
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("22_ow")
+z_index = 3
+
+[node name="AudioJump" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("15_jmp")
+
+[node name="AudioHit" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("16_hit")
+
+[node name="AudioScore" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("17_scr")
