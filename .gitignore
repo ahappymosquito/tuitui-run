@@ -24,5 +24,7 @@ Desktop.ini
 
 # 临时文件
 *.tmp
+__pycache__/
+*.pyc
 /tools/shots/
 /server/data/

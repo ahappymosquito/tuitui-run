@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Tuitui Run"
-config/version="1.6.0"
+config/version="1.6.3"
 config/description="Chrome 小恐龙手感 + 推推女巫皮肤"
 run/main_scene="res://ui/loading.tscn"
 run/max_fps=60

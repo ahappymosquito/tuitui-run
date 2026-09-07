@@ -320,7 +320,7 @@ func _on_ring() -> void:
 	score += RunnerConfig.SCORE_RING
 	audio_score.play()
 	if player != null:
-		_pop_pickup(player.global_position + Vector2(24, -90), "火圈 +80", Color(1.0, 0.55, 0.28, 1))
+		_pop_pickup(player.global_position + Vector2(24, -90), "星门 +80", Color(1.0, 0.72, 0.88, 1))
 	hud.punch_pickup()
 
 

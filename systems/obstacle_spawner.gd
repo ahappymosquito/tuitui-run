@@ -5,7 +5,7 @@ const TEX_BOOKS: Texture2D = preload("res://assets/obstacles/books.png")
 const TEX_CHEST: Texture2D = preload("res://assets/obstacles/chest.png")
 const TEX_SHELF: Texture2D = preload("res://assets/obstacles/shelf.png")
 const TEX_STAR: Texture2D = preload("res://assets/obstacles/star.png")
-const TEX_RING: Texture2D = preload("res://assets/obstacles/fire_ring.png")
+const TEX_RING: Texture2D = preload("res://assets/obstacles/star_gate.png")
 const TEX_SPIKES: Texture2D = preload("res://assets/obstacles/spikes.png")
 const TEX_BARRIER: Texture2D = preload("res://assets/obstacles/barrier.png")
 const TEX_CLIFF: Texture2D = preload("res://assets/obstacles/cliff.png")
@@ -344,7 +344,7 @@ func _spawn_obstacle(kind: Obstacle.Kind, speed: float, gap: float, x: float = -
 			scl = 0.12
 		Obstacle.Kind.CLIFF:
 			tex = TEX_CLIFF
-			scl = 0.28
+			scl = 0.68
 	obs.configure(kind, tex, scl, config.ground_y, air_y)
 	var spawn_x: float = config.spawn_x if x < 0.0 else x
 	obs.spawn(spawn_x, speed, gap)
@@ -374,7 +374,7 @@ func _spawn_follow_coins(obs: Obstacle, speed: float, blockers: Array[Obstacle])
 
 
 func _spawn_ring_route(ring: Obstacle, speed: float) -> void:
-	# 金币走同一条跳跃抛物线，顶点对准火圈洞心。
+	# 金币走同一条跳跃抛物线，顶点对准星门洞心。
 	var none: Array[Obstacle] = []
 	_spawn_jump_arc_coins(ring.position.x, speed, 7, none, ring.position.y)
 

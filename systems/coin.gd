@@ -12,6 +12,13 @@ var fills_energy: bool = true
 const TEX_GOLD: Texture2D = preload("res://assets/obstacles/coin.png")
 const TEX_SILVER: Texture2D = preload("res://assets/obstacles/coin_silver.png")
 const TEX_COPPER: Texture2D = preload("res://assets/obstacles/coin_copper.png")
+const GOLD_FRAMES: Array[Texture2D] = [
+	preload("res://assets/obstacles/coin_anim/0.png"),
+	preload("res://assets/obstacles/coin_anim/1.png"),
+	preload("res://assets/obstacles/coin_anim/2.png"),
+	preload("res://assets/obstacles/coin_anim/3.png"),
+	preload("res://assets/obstacles/coin_anim/4.png"),
+]
 
 @onready var sprite: Sprite2D = %Sprite2D
 
@@ -19,6 +26,7 @@ var _speed: float = 0.0
 var _active: bool = false
 var magnet: bool = false
 var _player: Player = null
+var _spin_t: float = 0.0
 
 
 func _ready() -> void:
@@ -58,6 +66,7 @@ func spawn(pos: Vector2, speed: float, p_metal: Metal = Metal.GOLD, p_energy: bo
 	global_position = pos
 	_speed = speed
 	_active = true
+	_spin_t = randf() * 0.72
 	reset_physics_interpolation()
 	visible = true
 	monitoring = true
@@ -75,9 +84,21 @@ func _physics_process(delta: float) -> void:
 	if not _active:
 		return
 	if sprite != null:
-		var wobble: float = 1.0 + 0.09 * sin(Time.get_ticks_msec() * 0.011 + global_position.x * 0.02)
+		_spin_t += delta
+		var u: float = fmod(_spin_t / 0.72, 1.0)
+		if u < 0.0:
+			u += 1.0
+		if metal == Metal.GOLD:
+			var last: int = GOLD_FRAMES.size() - 1
+			var ping: float = u * 2.0
+			if ping > 1.0:
+				ping = 2.0 - ping
+			ping = ping * ping * (3.0 - 2.0 * ping)
+			var idx: int = clampi(int(round(ping * float(last))), 0, last)
+			sprite.texture = GOLD_FRAMES[idx]
+		var wobble: float = 1.0 + 0.06 * sin(_spin_t * 7.2 + global_position.x * 0.02)
 		sprite.scale = Vector2(0.038 * wobble, 0.038 * wobble)
-		sprite.rotation = sin(Time.get_ticks_msec() * 0.008 + global_position.x * 0.01) * 0.18
+		sprite.rotation = sin(_spin_t * 5.4 + global_position.x * 0.01) * 0.12
 	if magnet and _player != null and _player.alive:
 		var to_p: Vector2 = _player.body_hitbox_center() - global_position
 		global_position += to_p.normalized() * 720.0 * delta
