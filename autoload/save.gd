@@ -23,6 +23,7 @@ var equipped: String = "oc_a"
 var best_score_local: int = 0
 var best_distance: int = 0
 var iap_owned: PackedStringArray = PackedStringArray()
+var touch_guide_done: bool = false
 
 
 func _ready() -> void:
@@ -74,6 +75,7 @@ func _load_save() -> void:
 	owned = _to_packed(data.get("owned", ["oc_a"]))
 	equipped = str(data.get("equipped", "oc_a"))
 	iap_owned = _to_packed(data.get("iap_owned", []))
+	touch_guide_done = bool(data.get("touch_guide_done", false))
 	call_deferred("_sanitize_after_catalog")
 
 
@@ -112,6 +114,7 @@ func persist() -> void:
 		"best_score": best_score_local,
 		"best_distance": best_distance,
 		"iap_owned": Array(iap_owned),
+		"touch_guide_done": touch_guide_done,
 	}
 	var f: FileAccess = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if f != null:

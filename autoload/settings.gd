@@ -114,7 +114,7 @@ func is_touch_play() -> bool:
 
 func run_guide_text() -> String:
 	if is_touch_play():
-		return "左滑  ·  右跳  ·  跟着金币走"
+		return "左边下滑  ·  右边跳跃  ·  跟着金币走"
 	return "%s跳  ·  %s下滑  ·  跟着金币走" % [key_name(jump_key), key_name(duck_key)]
 
 

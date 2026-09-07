@@ -208,7 +208,8 @@ func _fade_hint() -> void:
 	if _hint_tw != null:
 		_hint_tw.kill()
 	_hint_tw = create_tween()
-	_hint_tw.tween_interval(2.6)
+	var hold: float = 4.2 if Settings.is_touch_play() else 2.6
+	_hint_tw.tween_interval(hold)
 	_hint_tw.tween_property(hint_label, "modulate:a", 0.0, 0.4)
 	_hint_tw.tween_callback(func () -> void:
 		hint_label.visible = false

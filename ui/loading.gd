@@ -18,7 +18,7 @@ func _ready() -> void:
 		"超级时空是休息关，奖励币不再充能。",
 	])
 	if Settings.is_touch_play():
-		tips[0] = "左滑右跳。跟着金币走。"
+		tips[0] = "左边下滑，右边跳跃。跟着金币走。"
 	tip.text = tips[randi() % tips.size()]
 	_apply_poster()
 	if has_node("%VersionLabel"):

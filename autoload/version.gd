@@ -2,7 +2,7 @@ class_name GameVersion
 extends Object
 
 ## 每个打包版本只改这里，然后同步 project.godot / export_presets.cfg 的 version。
-const STRING: String = "1.6.3"
+const STRING: String = "1.6.4"
 
 
 static func display() -> String:
